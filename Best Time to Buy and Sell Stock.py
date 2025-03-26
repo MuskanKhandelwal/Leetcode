@@ -6,6 +6,5 @@ class Solution:
             for j in range(i + 1, len(prices)):
                 sell=prices[j]
                 profit= max(profit,sell-buy)       
-    
         return profit
         
