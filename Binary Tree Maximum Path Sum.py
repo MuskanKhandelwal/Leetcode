@@ -17,7 +17,6 @@ class Solution:
             leftm = max(leftm, 0)
             rightm = max(rightm, 0)
             res[0]=max(res[0],root.val+leftm+rightm)
-
             return root.val+max(leftm,rightm)
         dfs(root)
         return res[0]
