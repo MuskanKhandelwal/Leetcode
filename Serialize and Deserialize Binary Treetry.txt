@@ -1,0 +1,38 @@
+I usually get stuck in understanding how to fill the NULL nodes in the list.
+So for serialization you can add the nodes val and if its null, add some value like N. Its like saving and loading a tree
+def serialize(self, root: Optional[TreeNode]) -> str:
+    res = []
+
+    def dfs(node):
+        if not node:
+            res.append("N")  # Null node
+            return
+        res.append(str(node.val))  # Save value
+        dfs(node.left)  # Go left
+        dfs(node.right)  # Go right
+
+    dfs(root)
+    return ",".join(res)  # Combine into a string
+
+  def deserialize(self, data: str) -> Optional[TreeNode]:
+    vals = data.split(",")  # Turn string back into list
+    self.i = 0
+
+    def dfs():
+        if vals[self.i] == "N":
+            self.i += 1
+            return None
+        node = TreeNode(int(vals[self.i]))
+        self.i += 1
+        node.left = dfs()  # Rebuild left subtree
+        node.right = dfs()  # Rebuild right subtree
+        return node
+
+    return dfs()
+Whatever subtree is returned from dfs() next, attach it as the left child
+The recursion builds a node → then builds its left subtree → then its right subtree
+
+It keeps returning fully built subtrees back up the chain
+
+The assignments like node.left = dfs() attach child nodes to their parents
+
