@@ -1,0 +1,49 @@
+Let's see at each point we have left and right subtree, also we can have negative values, so for each node we need to know the max it has including/excluding its subtrees.
+forming a path. 
+
+Looks like recursion on each left and right subtree. Makes sense to use dfs. recursion base condition if it none return 0. So here we want to find the max path at each subtree, 
+and we can only go to the left or the right otherwise it'll be foreked that's why we have return root.val + max(leftMax, rightMax) and not return root.val + leftMax+ rightMax
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        res = [root.val]
+
+        def dfs(root):
+            if not root:
+                return 0
+
+            leftMax = dfs(root.left)
+            rightMax = dfs(root.right)
+            leftMax = max(leftMax, 0)
+            rightMax = max(rightMax, 0)
+
+            res[0] = max(res[0], root.val + leftMax + rightMax)
+            return root.val + max(leftMax, rightMax)
+
+        dfs(root)
+        return res[0]
+
+    5
+   / \
+  3   4
+dfs(3) returns 3 to 5
+
+dfs(4) returns 4 to 5
+
+Then at node 5, we compute:
+
+res[0] = max(res[0], 5 + 3 + 4) (a forked path)
+
+return 5 + max(3, 4) = 9 → this goes back to the caller, if there is one (the parent of node 5)
+
+leftMax = max(leftMax, 0)
+rightMax = max(rightMax, 0)
+and we are doing this to omit negative values that'll reduce our path sum. 
+
+
+But the line with res[0] = max(res[0], root.val + leftMax + rightMax) 
+considers the full path that passes through the current node and both its children. 
+This might be the actual maximum path in the whole tree, so we need to check it at every node.
+So we are keeping track of 2 things
+1st return value for recursion which one only consider one path
+2nd the res value which is having our maxpath sum 
+
