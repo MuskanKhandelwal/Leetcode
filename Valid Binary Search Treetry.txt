@@ -1,0 +1,24 @@
+So in this question we need to see if the tree is valid or not as a Binary tree. 
+Need to know what is a Binary tree. Then for each level we need to check that the left value should be less than node and right greater than nde(root), at 
+each subtree level.
+So if we consider dfs, we need a recursive function to check if left<node.val<right
+
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def valid(node, left, right):
+            if not node:
+                return True  
+            if not (left < node.val < right):
+                return False  
+
+            return valid(node.left, left, node.val) and valid(node.right, node.val, right)
+
+        return valid(root, float("-inf"), float("inf"))
+
+
+return valid(node.left, left, node.val) and valid(node.right, node.val, right)
+For the left subtree we update the right bound of current node because all values in the left subtree must be strictly less than the current node.
+For right subtree we update we update the left bound as all values in the right subtree must be strictly greater than the current node.
+
+Initial call valid(root, float("-inf"), float("inf")) passes the entire tree’s root node, with the initial bounds being negative infinity (-inf) for the left and 
+positive infinity (inf) for the right, meaning the root’s value can be anything within the valid range.
