@@ -6,7 +6,6 @@ and we can only go to the left or the right otherwise it'll be foreked that's wh
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         res = [root.val]
-
         def dfs(root):
             if not root:
                 return 0
