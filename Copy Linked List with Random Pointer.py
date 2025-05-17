@@ -15,6 +15,7 @@ class Solution:
             maphash[curr]= copy
             curr=curr.next
         curr=head
+        
         while curr:
             copy=maphash[curr]
             copy.next=maphash[curr.next]
