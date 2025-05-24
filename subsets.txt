@@ -1,0 +1,26 @@
+Its the first backtracking question i'm legit solving in this series. 
+So basically in this question we are supposed to create subsets, and no suplicates should be there and can be in any order. 
+1. So its a classic backtracking problem of pick or dont pick
+2. So at each case we will have 2 choices to add the next ele or to not add. 
+3. So a tree structure can be used with dfs to make the 2 conditions, so for one branch it'll add, then it'll backtrack so basically pop it and run the dfs again.
+4. This will create the subsets we need 
+
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res=[]
+        subset=[]
+
+        def dfs(i):
+            if i>=len(nums):
+                res.append(subset.copy())
+                return 
+
+            subset.append(nums[i])
+            dfs(i+1)
+            subset.pop()
+            dfs(i+1)
+
+        dfs(0) # start the DFS at 0 index 
+
+        return res
+
