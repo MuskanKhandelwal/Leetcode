@@ -1,0 +1,43 @@
+So this is the second question for the backtracking
+1. Here we want to get subsets where sum is equal to target sum and one value can be taken multiple times, in this also we are using dfs 
+2. But here we have repeitions, so first dfs call is with index i and second is with i+1
+
+  class Solution:
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        res=[]
+        subset=[]
+        sums=0
+        def dfs(i,subset,sums):
+            if sums>target or i>=len(nums):
+                return
+            if sums==target:
+                res.append(subset.copy())
+                return 
+            
+            subset.append(nums[i])   
+            dfs(i,subset,sums+nums[i])
+            subset.pop()
+            dfs(i+1,subset,sums)
+
+        dfs(0,subset,sums)
+        return res
+eg [2,3,5,7]  target 7 
+dfs(0,[],0)
+dfs(0,[2],2)
+dfs(0,[2,2],4)
+dfs(0,[2,2,2],6)
+dfs(0,[2,2,2,2],8)
+So here the edge case failed as 8>7
+so 2 will be popped
+dfs(1,[2,2,2],6)
+dfs(1,[2,2,2,3],9) 3 popped
+dfs(2,[2,2,2,5],11) 5 popped
+dfs(3,[2,2,2,7],13) 7 popped 2 popped
+dfs(1,[2,2,3],5)
+... continues 
+- Every recursive call gets its own frame on the call stack.
+- Each call goes deep into the recursion before unwinding and doing its own `pop()`.
+
+
+
+
