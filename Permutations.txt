@@ -1,0 +1,51 @@
+Okay so 4th question of backtracking series. Permuatations
+Now in this for eg [1,2,3] we will have 6 permuations (3*2*1)
+
+Here when creating or imagining a tree we need to see that for each index we want the combinations, so thats why we have to call a loop at each index we need to perform the stuff.
+And we are keeping a boolean list to see/ track if an element was included or not so we don't make any repetitions. And after each pop we are gonna rest the pick for that. 
+See the diagram below, just at the second last level some combinations are missed
+                            []
+          /                |               \
+         1                 2                3
+      /     \            /     \          /     \
+    2        3        1        3        1        2
+   /          \      /          \      /          \
+[1,2,3]   [1,3,2] [2,1,3]   [2,3,1] [3,1,2]   [3,2,1]
+
+
+TRying to understand with a simple example helped me understand the loop and the reset of pick at the end 
+Start: perm = [], pick = [False, False]
+|
++-- Choose nums[0] = 1 → perm = [1], pick = [True, False]
+|   |
+|   +-- Choose nums[1] = 2 → perm = [1, 2], pick = [True, True]
+|       → Full perm! Add [1, 2] to res
+|   ← Backtrack: perm = [1], pick = [True, False]
+|   ← Backtrack: perm = [], pick = [False, False]
+|
++-- Choose nums[1] = 2 → perm = [2], pick = [False, True]
+    |
+    +-- Choose nums[0] = 1 → perm = [2, 1], pick = [True, True]
+        → Full perm! Add [2, 1] to res
+    ← Backtrack: perm = [2], pick = [False, True]
+    ← Backtrack: perm = [], pick = [False, False]
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        perm = []
+        def backtrack(perm, pick):
+            if len(perm) == len(nums):
+                res.append(perm[:])
+                return
+            for i in range(len(nums)):
+                if not pick[i]:
+                    perm.append(nums[i])
+                    pick[i] = True
+                    backtrack(perm, pick)
+                    perm.pop()
+                    pick[i] = False
+
+        backtrack([], [False] *len(nums))
+        return res
