@@ -14,7 +14,7 @@ class Solution:
             else:
                 if target < nums[m] or target > nums[r]:
                     r=m-1
-                else:
-                    l=m+1
+                else:l=m+1
 
         return -1
+        
