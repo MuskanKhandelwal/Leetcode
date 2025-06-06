@@ -1,0 +1,42 @@
+In this question first we need to create a hashmap of digits and characters. 
+The base case will come when the str len is equal to the digit length and then we can add it to the result.
+
+It's one of the problems I'm doing requiring to call backtrack in for loop.
+The recursion tree for the question looks like this. Lets use gpt
+
+Start at the first digit (index 0): The first digit is 3, which can map to ["d", "e", "f"].
+
+Move to the next digit (index 1): The second digit is 4, which can map to ["g", "h", "i"].
+
+
+
+                  ""
+               /  |  \
+             "d" "e"  "f"
+            /  |  \ /  |  \ /  |  \
+          "dg" "dh" "di" "eg" "eh" "ei" "fg" "fh" "fi"
+
+
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        res=[]
+        digitTochar={"2":"abc",
+                    "3":"def",
+                    "4":"ghi",
+                    "5":"jkl",
+                    "6":"mno",
+                    "7":"pqrs",
+                    "8":"tuv",
+                    "9":"wxyz"}
+        def backtrack(i,charstr):
+            if len(charstr) == len(digits):
+                res.append(charstr)
+                return 
+            
+            for c in digitTochar[digits[i]]:
+                backtrack(i+1,charstr+c)
+
+        if digits:
+            backtrack(0,"")  #we are checking the condition here because if digits is empty we cant return [""], we need []
+        
+        return res
