@@ -7,3 +7,4 @@ Max-Heap: In this type, the value of each parent node is greater than or equal t
 
 Min-Heap: In this type, the value of each parent node is less than or equal to the values of its children. This ensures that the minimum value is always at the root.
 
+
