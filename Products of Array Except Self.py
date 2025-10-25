@@ -28,3 +28,22 @@ class Solution:
             res[i] *= postfix
             postfix *= nums[i]
         return res
+
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        prefix = []
+        prefix.append(1)
+        p = 1
+        for i in range(len(nums)-1):
+            p=p*nums[i]
+            prefix.append(p)
+        suffix = [0] * len(nums)
+        suffix[len(nums)-1] = 1 
+        for i in range(len(nums)-2,-1,-1):
+            suffix[i] = suffix[i+1]*nums[i+1]
+        res = []
+        for i in range(len(nums)):
+            res.append(prefix[i]*suffix[i])
+        return res
+        
