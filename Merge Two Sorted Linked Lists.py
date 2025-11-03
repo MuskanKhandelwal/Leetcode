@@ -22,3 +22,6 @@ class Solution:
         if list2:
             tail.next=list2
         return dummy.next
+
+
+#need to have a dummy node to use the iterative solution 
