@@ -8,6 +8,7 @@ class TreeNode:
 
 
 class Solution:
+    
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         res=[root.val]
         def dfs(root):
