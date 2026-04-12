@@ -5,8 +5,6 @@ class TreeNode:
         self.left = left
         self.right = right
         
-
-
 class Solution:
     
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
